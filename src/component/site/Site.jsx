@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 import "./Style.css";
 
 export default function Site() {
@@ -576,7 +576,8 @@ export default function Site() {
                   </nav>
                 </div>
               </div>
-              {/*sidebar */}
+              {/* sidebar */}
+
               <nav className="navbar nav_bottom" role="navigation">
                 <div className="navbar-header nav_2">
                   <button
@@ -597,22 +598,20 @@ export default function Site() {
                   className="collapse navbar-collapse"
                   id="bs-megadropdown-tabs"
                 >
-                  <ul className="nav navbar-nav nav_1">
-                    <li className="active">
-                      <a href="index.html">Home</a>
+                  <ul
+                    className="nav navbar-nav nav_1"
+                    style={{ display: "inline-block", float: "right" }}
+                  >
+                    <li className="">
+                      <Link to="">Home</Link>
                     </li>
                     <li>
-                      <a href="about.html">About</a>
+                      <Link to="/about">About</Link>
                     </li>
                     <li>
-                      <a href="search.html">Search</a>
+                      <Link to="/search">Search</Link>
                     </li>
-                    <li>
-                      <a href="app.html" target="_blank">
-                        Mobile
-                      </a>
-                    </li>
-
+                    {/* quick search */}
                     <li className="dropdown">
                       <a
                         href="#"
@@ -693,24 +692,41 @@ export default function Site() {
                         </div>
                       </ul>
                     </li>
+                    {/* end quick */}
                     <li className="last">
-                      <a href="contact.html">Contacts</a>
+                      <Link to="/contact">Contacts</Link>
                     </li>
                   </ul>
                 </div>
               </nav>
+
               {/* end */}
               {/* <!-- end pull-right --> */}
               <div className="clearfix"> </div>
             </div>
             {/* <!-- end container --> */}
           </div>
+
           {/* <!-- end navbar-inner --> */}
         </div>
+
         {/* <!-- end navbar-inverse-blue --> */}
       </header>
       {/* <!-- /header --> */}
       <Outlet />
+
+      {/* <!-- Get started --> */}
+      <div className="w3layous-story text-center">
+        <div className="container">
+          <h4>
+            Your story is waiting to happen!{" "}
+            <a className="scroll" href="#home">
+              Get started
+            </a>
+          </h4>
+        </div>
+      </div>
+      {/* <!-- //Get started --> */}
       {/* <!-- footer --> */}
       <footer>
         <div className="footer">

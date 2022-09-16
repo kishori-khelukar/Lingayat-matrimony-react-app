@@ -1,7 +1,30 @@
 import React from "react";
-import "./Style.css";
-
+import { useForm } from "react-hook-form";
+import { addFeedback } from "../services/Service";
 export default function Contact() {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  //add student method-
+  const onSave = (data) => {
+    addFeedback(data)
+      .then((res) => {
+        if (res.data.success) {
+        }
+        reset({
+          name: "",
+          contact: "",
+          feedback: "",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div>
       {/* <!-- inner banner -->	 */}
@@ -58,313 +81,91 @@ export default function Contact() {
           </div>
           {/* <!---728x90---> */}
           <div className="w3_locations">
-            <h2>Global Offices</h2>
+            {/* <h2>Contact Us</h2> */}
             <div className="resp-tabs-container hor_1">
               <div>
                 {/* <!--vertical Tabs--> */}
 
                 <div id="ChildVerticalTab_1">
                   <ul className="resp-tabs-list ver_1">
-                    <li>Office 1</li>
-                    <li>Office 2</li>
-                    <li>Office 3</li>
-                    <li>Office 4</li>
-                    <li>Office 5</li>
-                    <li>Office 6</li>
-                    <li>Office 7</li>
-                    <li>Office 8</li>
-                    <li>Office 9</li>
-                    <li>Office 10</li>
-                    <li>Office 11</li>
-                    <li>Office 12</li>
+                    <li>Contact Us</li>
+                    {/* <li>Contact</li>
+                    <li>Feedback</li> */}
                   </ul>
                   <div className="resp-tabs-container ver_1">
                     <div>
                       <section className="w3_g_address">
-                        <h3>Contact information:</h3>
-                        <b>Office name</b>
-                        <ul>
-                          <li>
-                            <span>Address</span>: 8901 Nulla Pariatur, Ipsum,
-                            D05 87GR.
-                          </li>
-                          <li>
-                            <span>Phone</span>: 548 542 121 0000
-                          </li>
-                          <li>
-                            <span>Customercare</span>:{" "}
-                            <a href="writeus.html">Click here</a>{" "}
-                          </li>
-                        </ul>
-                        <h3>Locate Us:</h3>
-                        <iframe
-                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d556620.8307728033!2d-2.9834769476888003!3d54.73441396875619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x25a3b1142c791a9%3A0xc4f8a0433288257a!2sUnited+Kingdom!5e0!3m2!1sen!2sin!4v1495440798217"
-                          allowfullscreen
-                        ></iframe>
-                      </section>
-                    </div>
-                    <div>
-                      <section className="w3_g_address">
-                        <h3>Contact information:</h3>
-                        <b>Office name</b>
-                        <ul>
-                          <li>
-                            <span>Address</span>: 5801 8th cross road, Ipsum,
-                            D015 Lorem.
-                          </li>
-                          <li>
-                            <span>Phone</span>: 088 555 1545 25
-                          </li>
-                          <li>
-                            <span>Customercare</span>:{" "}
-                            <a href="writeus.html">Click here</a>{" "}
-                          </li>
-                        </ul>
-                        <h3>Locate Us:</h3>
-                        <iframe
-                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d556620.8307728033!2d-2.9834769476888003!3d54.73441396875619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x25a3b1142c791a9%3A0xc4f8a0433288257a!2sUnited+Kingdom!5e0!3m2!1sen!2sin!4v1495440798217"
-                          allowfullscreen
-                        ></iframe>
-                      </section>
-                    </div>
-                    <div>
-                      <section className="w3_g_address">
-                        <h3>Contact information:</h3>
-                        <b>Office name</b>
-                        <ul>
-                          <li>
-                            <span>Address</span>: 8901 Nulla Pariatur, Ipsum,
-                            D05 87GR.
-                          </li>
-                          <li>
-                            <span>Phone</span>: 548 542 121 0000
-                          </li>
-                          <li>
-                            <span>Customercare</span>:{" "}
-                            <a href="writeus.html">Click here</a>{" "}
-                          </li>
-                        </ul>
-                        <h3>Locate Us:</h3>
-                        <iframe
-                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d556620.8307728033!2d-2.9834769476888003!3d54.73441396875619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x25a3b1142c791a9%3A0xc4f8a0433288257a!2sUnited+Kingdom!5e0!3m2!1sen!2sin!4v1495440798217"
-                          allowfullscreen
-                        ></iframe>
-                      </section>
-                    </div>
-                    <div>
-                      <section className="w3_g_address">
-                        <h3>Contact information:</h3>
-                        <b>Office name</b>
-                        <ul>
-                          <li>
-                            <span>Address</span>: 5801 8th cross road, Ipsum,
-                            D015 Lorem.
-                          </li>
-                          <li>
-                            <span>Phone</span>: 088 555 1545 25
-                          </li>
-                          <li>
-                            <span>Customercare</span>:{" "}
-                            <a href="writeus.html">Click here</a>{" "}
-                          </li>
-                        </ul>
-                        <h3>Locate Us:</h3>
-                        <iframe
-                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d556620.8307728033!2d-2.9834769476888003!3d54.73441396875619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x25a3b1142c791a9%3A0xc4f8a0433288257a!2sUnited+Kingdom!5e0!3m2!1sen!2sin!4v1495440798217"
-                          allowfullscreen
-                        ></iframe>
-                      </section>
-                    </div>
-                    <div>
-                      <section className="w3_g_address">
-                        <h3>Contact information:</h3>
-                        <b>Office name</b>
-                        <ul>
-                          <li>
-                            <span>Address</span>: 8901 Nulla Pariatur, Ipsum,
-                            D05 87GR.
-                          </li>
-                          <li>
-                            <span>Phone</span>: 548 542 121 0000
-                          </li>
-                          <li>
-                            <span>Customercare</span>:{" "}
-                            <a href="writeus.html">Click here</a>{" "}
-                          </li>
-                        </ul>
-                        <h3>Locate Us:</h3>
-                        <iframe
-                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d556620.8307728033!2d-2.9834769476888003!3d54.73441396875619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x25a3b1142c791a9%3A0xc4f8a0433288257a!2sUnited+Kingdom!5e0!3m2!1sen!2sin!4v1495440798217"
-                          allowfullscreen
-                        ></iframe>
-                      </section>
-                    </div>
-                    <div>
-                      <section className="w3_g_address">
-                        <h3>Contact information:</h3>
-                        <b>Office name</b>
-                        <ul>
-                          <li>
-                            <span>Address</span>: 5801 8th cross road, Ipsum,
-                            D015 Lorem.
-                          </li>
-                          <li>
-                            <span>Phone</span>: 088 555 1545 25
-                          </li>
-                          <li>
-                            <span>Customercare</span>:{" "}
-                            <a href="writeus.html">Click here</a>{" "}
-                          </li>
-                        </ul>
-                        <h3>Locate Us:</h3>
-                        <iframe
-                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d556620.8307728033!2d-2.9834769476888003!3d54.73441396875619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x25a3b1142c791a9%3A0xc4f8a0433288257a!2sUnited+Kingdom!5e0!3m2!1sen!2sin!4v1495440798217"
-                          allowfullscreen
-                        ></iframe>
-                      </section>
-                    </div>
-                    <div>
-                      <section className="w3_g_address">
-                        <h3>Contact information:</h3>
-                        <b>Office name</b>
-                        <ul>
-                          <li>
-                            <span>Address</span>: 8901 Nulla Pariatur, Ipsum,
-                            D05 87GR.
-                          </li>
-                          <li>
-                            <span>Phone</span>: 548 542 121 0000
-                          </li>
-                          <li>
-                            <span>Customercare</span>:{" "}
-                            <a href="#">Click here</a>{" "}
-                          </li>
-                        </ul>
-                        <h3>Locate Us:</h3>
-                        <iframe
-                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d556620.8307728033!2d-2.9834769476888003!3d54.73441396875619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x25a3b1142c791a9%3A0xc4f8a0433288257a!2sUnited+Kingdom!5e0!3m2!1sen!2sin!4v1495440798217"
-                          allowfullscreen
-                        ></iframe>
-                      </section>
-                    </div>
-                    <div>
-                      <section className="w3_g_address">
-                        <h3>Contact information:</h3>
-                        <b>Office name</b>
-                        <ul>
-                          <li>
-                            <span>Address</span>: 5801 8th cross road, Ipsum,
-                            D015 Lorem.
-                          </li>
-                          <li>
-                            <span>Phone</span>: 088 555 1545 25
-                          </li>
-                          <li>
-                            <span>Customercare</span>:{" "}
-                            <a href="writeus.html">Click here</a>{" "}
-                          </li>
-                        </ul>
-                        <h3>Locate Us:</h3>
-                        <iframe
-                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d556620.8307728033!2d-2.9834769476888003!3d54.73441396875619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x25a3b1142c791a9%3A0xc4f8a0433288257a!2sUnited+Kingdom!5e0!3m2!1sen!2sin!4v1495440798217"
-                          allowfullscreen
-                        ></iframe>
-                      </section>
-                    </div>
-                    <div>
-                      <section className="w3_g_address">
-                        <h3>Contact information:</h3>
-                        <b>Office name</b>
-                        <ul>
-                          <li>
-                            <span>Address</span>: 8901 Nulla Pariatur, Ipsum,
-                            D05 87GR.
-                          </li>
-                          <li>
-                            <span>Phone</span>: 548 542 121 0000
-                          </li>
-                          <li>
-                            <span>Customercare</span>:{" "}
-                            <a href="writeus.html">Click here</a>{" "}
-                          </li>
-                        </ul>
-                        <h3>Locate Us:</h3>
-                        <iframe
-                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d556620.8307728033!2d-2.9834769476888003!3d54.73441396875619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x25a3b1142c791a9%3A0xc4f8a0433288257a!2sUnited+Kingdom!5e0!3m2!1sen!2sin!4v1495440798217"
-                          allowfullscreen
-                        ></iframe>
-                      </section>
-                    </div>
-                    <div>
-                      <section className="w3_g_address">
-                        <h3>Contact information:</h3>
-                        <b>Office name</b>
-                        <ul>
-                          <li>
-                            <span>Address</span>: 5801 8th cross road, Ipsum,
-                            D015 Lorem.
-                          </li>
-                          <li>
-                            <span>Phone</span>: 088 555 1545 25
-                          </li>
-                          <li>
-                            <span>Customercare</span>:{" "}
-                            <a href="writeus.html">Click here</a>{" "}
-                          </li>
-                        </ul>
-                        <h3>Locate Us:</h3>
-                        <iframe
-                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d556620.8307728033!2d-2.9834769476888003!3d54.73441396875619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x25a3b1142c791a9%3A0xc4f8a0433288257a!2sUnited+Kingdom!5e0!3m2!1sen!2sin!4v1495440798217"
-                          allowfullscreen
-                        ></iframe>
-                      </section>
-                    </div>
-                    <div>
-                      <section className="w3_g_address">
-                        <h3>Contact information:</h3>
-                        <b>Office name</b>
-                        <ul>
-                          <li>
-                            <span>Address</span>: 8901 Nulla Pariatur, Ipsum,
-                            D05 87GR.
-                          </li>
-                          <li>
-                            <span>Phone</span>: 548 542 121 0000
-                          </li>
-                          <li>
-                            <span>Customercare</span>:{" "}
-                            <a href="writeus.html">Click here</a>{" "}
-                          </li>
-                        </ul>
-                        <h3>Locate Us:</h3>
-                        <iframe
-                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d556620.8307728033!2d-2.9834769476888003!3d54.73441396875619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x25a3b1142c791a9%3A0xc4f8a0433288257a!2sUnited+Kingdom!5e0!3m2!1sen!2sin!4v1495440798217"
-                          allowfullscreen
-                        ></iframe>
-                      </section>
-                    </div>
-                    <div>
-                      <section className="w3_g_address">
-                        <h3>Contact information:</h3>
-                        <b>Office name</b>
-                        <ul>
-                          <li>
-                            <span>Address</span>: 5801 8th cross road, Ipsum,
-                            D015 Lorem.
-                          </li>
-                          <li>
-                            <span>Phone</span>: 088 555 1545 25
-                          </li>
-                          <li>
-                            <span>Customercare</span>:{" "}
-                            <a href="writeus.html">Click here</a>{" "}
-                          </li>
-                        </ul>
-                        <h3>Locate Us:</h3>
-                        <iframe
-                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d556620.8307728033!2d-2.9834769476888003!3d54.73441396875619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x25a3b1142c791a9%3A0xc4f8a0433288257a!2sUnited+Kingdom!5e0!3m2!1sen!2sin!4v1495440798217"
-                          allowfullscreen
-                        ></iframe>
+                        {/* form start */}
+                        <form onSubmit={handleSubmit(onSave)}>
+                          <div className="w3_modal_body_grid w3_modal_body_grid1">
+                            <span>Full Name/पूर्ण नाव:</span>
+                            <input
+                              type="text"
+                              name="name"
+                              placeholder=""
+                              required=""
+                              {...register("name", {
+                                required: "Please Enter Your Name.",
+                                pattern: {
+                                  value: /^[a-z A-Z]+$/,
+                                  message: "Enter valid Name",
+                                },
+                              })}
+                            />
+                            {errors.name && (
+                              <span className="text-danger">
+                                {errors.name.message}
+                              </span>
+                            )}
+                          </div>
+                          <div className="w3_modal_body_grid w3_modal_body_grid1">
+                            <span>Contact To/संपर्क क्रमांक:</span>
+                            <input
+                              type="text"
+                              name="contact"
+                              placeholder=" "
+                              required=""
+                              {...register("contact", {
+                                required: "Please Enter Your Contact.",
+                                pattern: {
+                                  value: /^[0][1-9]\d{9}$|^[1-9]\d{9}$/,
+                                  message: "Enter valid Contact",
+                                },
+                              })}
+                            />
+                            {errors.contact && (
+                              <span className="text-danger">
+                                {errors.contact.message}
+                              </span>
+                            )}
+                          </div>
+                          <div className="w3_modal_body_grid w3_modal_body_grid1">
+                            <span>Type Your Text/अभिप्राय:</span>
+                            <input
+                              type="text"
+                              name="feedback"
+                              placeholder=" "
+                              required=""
+                              {...register("feedback", {
+                                required: "Please Enter Your Feedback.",
+                                pattern: {
+                                  value: /^[a-z A-Z]+$/,
+                                  message: "Enter valid Feedback",
+                                },
+                              })}
+                            />
+                            {errors.feedback && (
+                              <span className="text-danger">
+                                {errors.feedback.message}
+                              </span>
+                            )}
+                          </div>
+                          <div className="w3agile_banner_btom_login_left3">
+                            <input type="submit" value="Submit" />
+                          </div>
+                          <div className="clearfix"></div>
+                        </form>
+                        {/* form end */}
                       </section>
                     </div>
                   </div>
@@ -501,18 +302,7 @@ export default function Contact() {
           <div className="clearfix"></div>
         </div>
       </div>
-      {/* <!-- //browse profiles -->
-
-	<!-- Get started --> */}
-      <div className="w3layous-story text-center">
-        <div className="container">
-          <h4>
-            Your story is waiting to happen!{" "}
-            <a href="index.html">Get started</a>
-          </h4>
-        </div>
-      </div>
-      {/* <!-- //Get started --> */}
+      {/* <!-- //browse profiles --> */}
     </div>
   );
 }

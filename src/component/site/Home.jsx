@@ -1,7 +1,20 @@
 import React from "react";
+import { useForm } from "react-hook-form";
+import { addUsers } from "../services/Service";
 import "./Style.css";
 
 export default function Home() {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const onSave = (data) => {
+    addUsers(data).then((res) => {});
+  };
+
   return (
     <div>
       <div className="w3layouts-banner" id="home">
@@ -20,40 +33,93 @@ export default function Home() {
           <div className="clearfix"></div>
           <div className="agileits-register">
             <h3>Register NOW!</h3>
-            <form action="#" method="post">
-              <div className="w3_modal_body_grid">
-                <span>Profile For:</span>
-                <select
-                  id="w3_country"
-                  onchange="change_country(this.value)"
-                  className="frm-field required"
-                >
-                  <option value="null">Select</option>
-                  <option value="null">Myself</option>
-                  <option value="null">Son</option>
-                  <option value="null">Daughter</option>
-                  <option value="null">Brother</option>
-                  <option value="null">Sister</option>
-                  <option value="null">Relative</option>
-                  <option value="null">Friend</option>
-                </select>
-              </div>
+            <form onSubmit={handleSubmit(onSave)}>
               <div className="w3_modal_body_grid w3_modal_body_grid1">
                 <span>Name:</span>
-                <input type="text" name="Name" placeholder=" " required="" />
+                <input
+                  type="text"
+                  name="name"
+                  placeholder=" "
+                  required=""
+                  {...register("name", {
+                    required: "Please Enter Your Name.",
+                    pattern: {
+                      value: /^[a-z A-Z]+$/,
+                      message: "Enter Valid Name.",
+                    },
+                  })}
+                />
+                {errors.name && (
+                  <span className="text-denger">{errors.name.message}</span>
+                )}
+              </div>
+              <div className="w3_modal_body_grid w3_modal_body_grid1">
+                <span>Contact no:</span>
+                <input
+                  type="text"
+                  name="contact"
+                  placeholder=" "
+                  required=""
+                  {...register("contact", {
+                    required: "Please Enter Your Contact",
+                    pattern: {
+                      value: /^[0][1-9]\d{9}$|^[1-9]\d{9}$/,
+                      message: "Enter Valid Contact No",
+                    },
+                  })}
+                />
+                {errors.contact && (
+                  <span className="text-denger">{errors.contact.message}</span>
+                )}
+              </div>
+              <div className="w3_modal_body_grid w3_modal_body_grid1">
+                <span>Password:</span>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder=" "
+                  required=""
+                  {...register("password", {
+                    required: "Please Enter Password.",
+                    pattern: {
+                      value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
+                      message:
+                        "password must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter.",
+                    },
+                  })}
+                />
+                {errors.password && (
+                  <span className="text-denger">{errors.password.message}</span>
+                )}
+              </div>
+              <div className="w3_modal_body_grid w3_modal_body_grid1">
+                <span>Date Of Birth:</span>
+                <input
+                  className="date"
+                  id="datepicker"
+                  name="dob"
+                  type="text"
+                  value="mm/dd/yyyy"
+                  onfocus="this.value = '';"
+                  onblur="if (this.value == '') {this.value = '2/08/2013';}"
+                  required=""
+                  {...register("dob", {
+                    required: "Please Enter Date of Birth.",
+                  })}
+                />
               </div>
               <div className="w3_modal_body_grid">
                 <span>Gender:</span>
                 <div className="w3_gender">
                   <div className="colr ert">
                     <label className="radio">
-                      <input type="radio" name="radio" checked="" />
+                      <input type="radio" name="gender" />
                       <i></i>Male
                     </label>
                   </div>
                   <div className="colr">
                     <label className="radio">
-                      <input type="radio" name="radio" />
+                      <input type="radio" name="gender" />
                       <i></i>Female
                     </label>
                   </div>
@@ -61,55 +127,48 @@ export default function Home() {
                 </div>
                 <div className="clearfix"> </div>
               </div>
+
               <div className="w3_modal_body_grid w3_modal_body_grid1">
-                <span>Date Of Birth:</span>
+                <span>Marrital Status:</span>
                 <input
-                  className="date"
-                  id="datepicker"
-                  name="Text"
                   type="text"
-                  value="mm/dd/yyyy"
-                  onfocus="this.value = '';"
-                  onblur="if (this.value == '') {this.value = '2/08/2013';}"
-                  required=""
-                />
-              </div>
-              <div className="w3_modal_body_grid">
-                <span>religion:</span>
-                <select
-                  id="w3_country1"
-                  onchange="change_country(this.value)"
-                  className="frm-field required"
-                >
-                  <option value="null">Select Religion</option>
-                  <option value="null">Muslim</option>
-                  <option value="null">Hindu</option>
-                  <option value="null">Christian</option>
-                  <option value="null">Sikh</option>
-                  <option value="null">Jain</option>
-                  <option value="null">Buddhist</option>
-                  <option value="null">No Religious Belief</option>
-                </select>
-              </div>
-              <div className="w3_modal_body_grid w3_modal_body_grid1">
-                <span>Mobile No:</span>
-                {/* <!-- country codes (ISO 3166) and Dial codes. --> */}
-                <input id="phone" type="tel" />
-                {/* <!-- Load jQuery from CDN so can run demo immediately --> */}
-              </div>
-              <div className="w3_modal_body_grid">
-                <span>Email:</span>
-                <input type="email" name="Email" placeholder=" " required="" />
-              </div>
-              <div className="w3_modal_body_grid w3_modal_body_grid1">
-                <span>Password:</span>
-                <input
-                  type="password"
-                  name="Password"
+                  name="marriedStatus"
                   placeholder=" "
                   required=""
+                  {...register("marriedStatus", {
+                    required: "Please Enter Your Married Status.",
+                    pattern: {
+                      value: /^[a-z A-Z]+$/,
+                      message: "Enter Valid Married Status.",
+                    },
+                  })}
                 />
+                {errors.marriedStatus && (
+                  <span className="text-denger">
+                    {errors.marriedStatus.message}
+                  </span>
+                )}
               </div>
+              <div className="w3_modal_body_grid w3_modal_body_grid1">
+                <span>City:</span>
+                <input
+                  type="text"
+                  name="city"
+                  placeholder=" "
+                  required=""
+                  {...register("city", {
+                    required: "Please Enter Your city.",
+                    pattern: {
+                      value: /^[a-z A-Z]+$/,
+                      message: "Enter Valid city.",
+                    },
+                  })}
+                />
+                {errors.city && (
+                  <span className="text-denger">{errors.city.message}</span>
+                )}
+              </div>
+
               <div className="w3-agree">
                 <input type="checkbox" id="c1" name="cc" />
                 <label className="agileits-agree">
@@ -980,9 +1039,9 @@ export default function Home() {
         </p>
         <a href="assisted_services.html">Know More</a>
       </div>
-      {/* <!-- //Assisted Service --> */}
+      {/* <!-- //Assisted Service -->
 
-      {/* <!-- Location --> */}
+		<!-- Location --> */}
       <div className="location w3layouts">
         <div className="container">
           <div className="col-md-6 col-sm-6 w3layouts location-grids location-grids-1">
@@ -1003,17 +1062,6 @@ export default function Home() {
         </div>
       </div>
       {/* <!-- //Location --> */}
-
-      <div className="w3layous-story text-center">
-        <div className="container">
-          <h4>
-            Your story is waiting to happen!{" "}
-            <a className="scroll" href="#home">
-              Get started
-            </a>
-          </h4>
-        </div>
-      </div>
     </div>
   );
 }

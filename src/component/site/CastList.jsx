@@ -1266,18 +1266,7 @@ export default function CastList() {
           <div class="clearfix"></div>
         </div>
       </div>
-      {/* <!-- //browse profiles -->
-
-		<!-- Get started --> */}
-      <div class="w3layous-story text-center">
-        <div class="container">
-          <h4>
-            Your story is waiting to happen!{" "}
-            <a href="index.html">Get started</a>
-          </h4>
-        </div>
-      </div>
-      {/* <!-- //Get started --></div> */}
+      {/* <!-- //browse profiles --> */}
     </div>
   );
 }

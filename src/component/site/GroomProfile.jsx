@@ -12,7 +12,8 @@ export default function GroomProfile() {
               <a className="cd-logo link link--takiri" href="index.html">
                 Match{" "}
                 <span>
-                  <i className="fa fa-heart" aria-hidden="true"></i>Made in heaven.
+                  <i className="fa fa-heart" aria-hidden="true"></i>Made in
+                  heaven.
                 </span>
               </a>
             </h1>
@@ -217,7 +218,9 @@ export default function GroomProfile() {
                   <label className="col-sm-3 control-label1" for="Relation">
                     Languages Known :{" "}
                   </label>
-                  <div className="col-sm-9 w3_details">English, Hindi, Urdu</div>
+                  <div className="col-sm-9 w3_details">
+                    English, Hindi, Urdu
+                  </div>
                   <div className="clearfix"> </div>
                 </div>
                 <div className="form_but1">
@@ -512,7 +515,10 @@ export default function GroomProfile() {
                         <li>
                           <a href="#">
                             <span className="icons">
-                              <i className="fa fa-facebook" aria-hidden="true"></i>
+                              <i
+                                className="fa fa-facebook"
+                                aria-hidden="true"
+                              ></i>
                             </span>
                             <span className="text">Facebook</span>
                           </a>
@@ -520,7 +526,10 @@ export default function GroomProfile() {
                         <li className="twt">
                           <a href="#">
                             <span className="icons">
-                              <i className="fa fa-twitter" aria-hidden="true"></i>
+                              <i
+                                className="fa fa-twitter"
+                                aria-hidden="true"
+                              ></i>
                             </span>
                             <span className="text">Twitter</span>
                           </a>
@@ -663,18 +672,7 @@ export default function GroomProfile() {
           <div className="clearfix"></div>
         </div>
       </div>
-      {/* <!-- //browse profiles -->
-
-	<!-- Get started --> */}
-      <div className="w3layous-story text-center">
-        <div className="container">
-          <h4>
-            Your story is waiting to happen!{" "}
-            <a href="index.html">Get started</a>
-          </h4>
-        </div>
-      </div>
-      {/* <!-- //Get started --> */}
+      {/* <!-- //browse profiles --> */}
     </div>
   );
 }

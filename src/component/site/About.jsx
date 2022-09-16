@@ -422,19 +422,7 @@ export default function About() {
           <div className="clearfix"></div>
         </div>
       </div>
-      {/* <!-- //browse profiles -->
-
-	
-	<!-- Get started --> */}
-      <div className="w3layous-story text-center">
-        <div className="container">
-          <h4>
-            Your story is waiting to happen!{" "}
-            <a href="index.html">Get started</a>
-          </h4>
-        </div>
-      </div>
-      {/* <!-- //Get started --> */}
+      {/* <!-- //browse profiles --> */}
     </div>
   );
 }
