@@ -1,21 +1,27 @@
 import axios from "axios";
 const Base_Url = "http://localhost:8080/";
 
-//add feedback url-
-export async function addFeedback(data) {
-  try {
-    const response = await axios.post(Base_Url + "feedback/addFeedback", data);
-    return await response;
-  } catch (error) {
-    return [];
-  }
+//get single user url
+export function getUserLogin(data) {
+  return axios.post(Base_Url + "user/getUserLogin", data);
 }
-//registration form url
-export async function addUsers(data) {
-  try {
-    const response = await axios.post(Base_Url + "user/addUsers", data);
-    return await response;
-  } catch (error) {
-    return [];
-  }
+//add feedback url-
+export function addFeedback(data) {
+  return axios.post(Base_Url + "feedback/addFeedback", data);
+}
+//get all user url
+export function getAllUsers() {
+  return axios.get(Base_Url + "user/getAllUsers");
+}
+//get single user url
+export function getSingleUser(id) {
+  return axios.get(Base_Url + "user/getSingleUser/" + id);
+}
+//add user url
+export function addUsers(data) {
+  return axios.post(Base_Url + "user/addUsers", data);
+}
+//update user url-
+export function updateUser(data, id) {
+  return axios.put(Base_Url + "user/updateUser/" + id, data);
 }

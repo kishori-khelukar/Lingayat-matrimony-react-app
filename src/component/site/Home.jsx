@@ -1,18 +1,72 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { addUsers } from "../services/Service";
+import { addUsers, getUserLogin } from "../services/Service";
 import "./Style.css";
 
 export default function Home() {
+  const navigate = useNavigate();
+  //state for showing alert-
+  const [isShow, setIsShow] = useState(false);
+  const [alertClass, setAlertClass] = useState();
+  const [msg, setMsg] = useState();
   const {
     register,
     handleSubmit,
     reset,
+    getValues,
+    setValue,
     formState: { errors },
+  } = useForm();
+  const {
+    register: register1,
+    handleSubmit: handleSubmit1,
+    reset: reset1,
+    formState: { errors: errors1 },
   } = useForm();
 
   const onSave = (data) => {
-    addUsers(data).then((res) => {});
+    addUsers(data)
+      .then((res) => {
+        console.log(res.status);
+        if (res.data && res.data.success) {
+          localStorage.setItem("UserID", JSON.stringify(res.data.userId));
+
+          navigate("/profileDetails");
+        }
+        reset({
+          userName: "",
+          contact: "",
+          password: "",
+          dob: "",
+          gender: "",
+          marriedStatus: "",
+          city: "",
+        });
+      })
+      .catch((err) => {
+        if (err.response.status === 409) {
+          //setError(err.response.data.message);
+          //alert
+          setIsShow(true);
+          setAlertClass("alert alert-danger");
+          setMsg(err.response.data.message);
+          //end alert
+        }
+      });
+  };
+  //login-
+  const loginData = (data) => {
+    getUserLogin(data).then((res) => {
+      console.log(res.data);
+      if (res.data) {
+        alert("Login Successful");
+        navigate("/profileDetails");
+        //localStorage.setItem("login", JSON.stringify(res.data));
+      } else {
+        alert("Login Failed");
+      }
+    });
   };
 
   return (
@@ -33,139 +87,160 @@ export default function Home() {
           <div className="clearfix"></div>
           <div className="agileits-register">
             <h3>Register NOW!</h3>
+            {/* display alert */}
+            {isShow && (
+              <div className={alertClass} role="alert">
+                {msg}
+              </div>
+            )}
+            {/* end */}
             <form onSubmit={handleSubmit(onSave)}>
+              {/* username */}
               <div className="w3_modal_body_grid w3_modal_body_grid1">
-                <span>Name:</span>
+                <span>Name*:</span>
                 <input
                   type="text"
-                  name="name"
+                  name="userName"
                   placeholder=" "
                   required=""
-                  {...register("name", {
-                    required: "Please Enter Your Name.",
+                  {...register("userName", {
+                    required: "please enter your name.",
                     pattern: {
                       value: /^[a-z A-Z]+$/,
                       message: "Enter Valid Name.",
                     },
                   })}
                 />
-                {errors.name && (
-                  <span className="text-denger">{errors.name.message}</span>
+              </div>
+              <div>
+                {errors.userName && (
+                  <span className="text-danger">{errors.userName.message}</span>
                 )}
               </div>
+              {/* contact no */}
               <div className="w3_modal_body_grid w3_modal_body_grid1">
-                <span>Contact no:</span>
+                <span>Contact no*:</span>
                 <input
                   type="text"
                   name="contact"
                   placeholder=" "
                   required=""
                   {...register("contact", {
-                    required: "Please Enter Your Contact",
+                    required: "please enter your contact",
                     pattern: {
                       value: /^[0][1-9]\d{9}$|^[1-9]\d{9}$/,
                       message: "Enter Valid Contact No",
                     },
                   })}
                 />
+              </div>
+              <div>
                 {errors.contact && (
-                  <span className="text-denger">{errors.contact.message}</span>
+                  <span className="text-danger">{errors.contact.message}</span>
                 )}
               </div>
+              {/* password */}
               <div className="w3_modal_body_grid w3_modal_body_grid1">
-                <span>Password:</span>
+                <span>Password*:</span>
                 <input
                   type="password"
                   name="password"
                   placeholder=" "
                   required=""
                   {...register("password", {
-                    required: "Please Enter Password.",
+                    required: "please enter password.",
                     pattern: {
-                      value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
-                      message:
-                        "password must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter.",
+                      value: /^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$/,
+                      message: "Enter atleast 8 character",
                     },
                   })}
                 />
+              </div>
+              <div>
                 {errors.password && (
-                  <span className="text-denger">{errors.password.message}</span>
+                  <span className="text-danger">{errors.password.message}</span>
                 )}
               </div>
+              {/* gender */}
               <div className="w3_modal_body_grid w3_modal_body_grid1">
-                <span>Date Of Birth:</span>
+                <span>Gender*:</span>
+                <select
+                  id="w3_country"
+                  className="frm-field required"
+                  {...register("gender", {
+                    required: "please enter your married status.",
+                  })}
+                >
+                  <option value="">---Gender---</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+              <div>
+                {errors.gender && (
+                  <span className="text-danger">{errors.gender.message}</span>
+                )}
+              </div>
+              {/* Date Of Birth: */}
+              <div className="w3_modal_body_grid w3_modal_body_grid1">
+                <span>Date Of Birth*:</span>
                 <input
-                  className="date"
-                  id="datepicker"
                   name="dob"
-                  type="text"
-                  value="mm/dd/yyyy"
-                  onfocus="this.value = '';"
-                  onblur="if (this.value == '') {this.value = '2/08/2013';}"
+                  type="date"
                   required=""
                   {...register("dob", {
-                    required: "Please Enter Date of Birth.",
+                    required: "please enter your birth date.",
                   })}
                 />
               </div>
-              <div className="w3_modal_body_grid">
-                <span>Gender:</span>
-                <div className="w3_gender">
-                  <div className="colr ert">
-                    <label className="radio">
-                      <input type="radio" name="gender" />
-                      <i></i>Male
-                    </label>
-                  </div>
-                  <div className="colr">
-                    <label className="radio">
-                      <input type="radio" name="gender" />
-                      <i></i>Female
-                    </label>
-                  </div>
-                  <div className="clearfix"> </div>
-                </div>
-                <div className="clearfix"> </div>
-              </div>
-
-              <div className="w3_modal_body_grid w3_modal_body_grid1">
-                <span>Marrital Status:</span>
-                <input
-                  type="text"
-                  name="marriedStatus"
-                  placeholder=" "
-                  required=""
-                  {...register("marriedStatus", {
-                    required: "Please Enter Your Married Status.",
-                    pattern: {
-                      value: /^[a-z A-Z]+$/,
-                      message: "Enter Valid Married Status.",
-                    },
-                  })}
-                />
-                {errors.marriedStatus && (
-                  <span className="text-denger">
-                    {errors.marriedStatus.message}
-                  </span>
+              <div>
+                {errors.dob && (
+                  <span className="text-danger">{errors.dob.message}</span>
                 )}
               </div>
+              {/* city */}
               <div className="w3_modal_body_grid w3_modal_body_grid1">
-                <span>City:</span>
+                <span>City*:</span>
                 <input
                   type="text"
                   name="city"
                   placeholder=" "
                   required=""
                   {...register("city", {
-                    required: "Please Enter Your city.",
+                    required: "please enter your city.",
                     pattern: {
                       value: /^[a-z A-Z]+$/,
                       message: "Enter Valid city.",
                     },
                   })}
                 />
+              </div>
+              <div>
                 {errors.city && (
-                  <span className="text-denger">{errors.city.message}</span>
+                  <span className="text-danger">{errors.city.message}</span>
+                )}
+              </div>
+
+              {/* married status */}
+              <div className="w3_modal_body_grid w3_modal_body_grid1">
+                <span>Marital Status*:</span>
+                <select
+                  id="w3_country"
+                  className="frm-field required"
+                  {...register("marriedStatus", {
+                    required: "please enter your married status.",
+                  })}
+                >
+                  <option value="">---Married Status---</option>
+                  <option value="Never Married">Never Married</option>
+                  <option value="Re-Marriage">Re-Marriage</option>
+                </select>
+              </div>
+              <div>
+                {errors.marriedStatus && (
+                  <span className="text-danger">
+                    {errors.marriedStatus.message}
+                  </span>
                 )}
               </div>
 
@@ -186,7 +261,7 @@ export default function Home() {
               </p>
             </form>
           </div>
-          {/* <!-- Modal --> */}
+          {/* <!-- login --> */}
           <div
             id="myModal"
             className="modal fade"
@@ -210,21 +285,46 @@ export default function Home() {
                 </div>
                 <div className="modal-body">
                   <div className="login-w3ls">
-                    <form id="signin" action="#" method="post">
-                      <label>User Name </label>
+                    <form id="signin" onSubmit={handleSubmit1(loginData)}>
+                      <label htmlFor="">Contact No :</label>
                       <input
                         type="text"
-                        name="User Name"
-                        placeholder="Username"
+                        name="contact"
+                        placeholder="Contact No"
                         required=""
+                        {...register1("contact", {
+                          required: "Please Enter contact no.",
+                          pattern: {
+                            value: /^[0][1-9]\d{9}$|^[1-9]\d{9}$/,
+                            message: "Enter Valid Contact No.",
+                          },
+                        })}
                       />
-                      <label>Password</label>
+                      {errors1.contact && (
+                        <span className="text-danger">
+                          {errors1.contact.message}
+                        </span>
+                      )}
+                      <label>Password :</label>
                       <input
                         type="password"
-                        name="Password"
+                        name="password"
                         placeholder="Password"
                         required=""
+                        {...register1("password", {
+                          required: "Please Enter Password.",
+                          pattern: {
+                            value:
+                              /^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$/,
+                            message: "Enter atleast 8 character",
+                          },
+                        })}
                       />
+                      {errors1.password && (
+                        <span className="text-danger">
+                          {errors1.password.message}
+                        </span>
+                      )}
                       <div className="w3ls-loginr">
                         <input
                           type="checkbox"
@@ -873,164 +973,7 @@ export default function Home() {
         {/* <!-- //slider --> */}
       </div>
 
-      {/* <!-- mobile-app --> */}
-      <div className="wthree-mobilaapp main-grid-border">
-        <div className="container">
-          <div className="app">
-            <div className="col-md-6 w3ls_app-left mpl">
-              <h3>Matrimonial mobile app on your smartphone!</h3>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s.
-              </p>
-              <div className="agileits_app-devices">
-                <h5>Download the App</h5>
-                <a href="#">
-                  <img src="assets/images/1.png" alt="" />
-                </a>
-                <a href="#">
-                  <img src="assets/images/2.png" alt="" />
-                </a>
-                <div className="clearfix"> </div>
-              </div>
-            </div>
-            <div className="col-md-offset-1 col-md-5 app-image">
-              <img src="assets/images/mob.png" alt="" />
-            </div>
-            <div className="clearfix"></div>
-          </div>
-        </div>
-      </div>
-      {/* <!-- /mobile-app -->
-
-		<!-- browse profiles --> */}
-      <div className="w3layouts-browse text-center">
-        <div className="container">
-          <h3>Browse Matchmaking Profiles by</h3>
-          <div className="col-md-4 w3-browse-grid">
-            <h4>By Country</h4>
-            <ul>
-              <li>
-                <a href="nri_list.html">Country 1</a>
-              </li>
-              <li>
-                <a href="nri_list.html">Country 2</a>
-              </li>
-              <li>
-                <a href="nri_list.html">Country 3</a>
-              </li>
-              <li>
-                <a href="nri_list.html">Country 4</a>
-              </li>
-              <li>
-                <a href="nri_list.html">Country 5</a>
-              </li>
-              <li>
-                <a href="nri_list.html">Country 6</a>
-              </li>
-              <li>
-                <a href="nri_list.html">Country 7</a>
-              </li>
-              <li>
-                <a href="nri_list.html">Country 8</a>
-              </li>
-              <li>
-                <a href="nri_list.html">Country 9</a>
-              </li>
-              <li>
-                <a href="nri_list.html">Country 10</a>
-              </li>
-              <li>
-                <a href="nri_list.html">Country 11</a>
-              </li>
-              <li className="more">
-                <a href="nri_list.html">more..</a>
-              </li>
-            </ul>
-          </div>
-          <div className="col-md-4 w3-browse-grid">
-            <h4>By Religion</h4>
-            <ul>
-              <li>
-                <a href="r_list.html">Religion 1</a>
-              </li>
-              <li>
-                <a href="r_list.html">Religion 2</a>
-              </li>
-              <li>
-                <a href="r_list.html">Religion 3</a>
-              </li>
-              <li>
-                <a href="r_list.html">Religion 4</a>
-              </li>
-              <li>
-                <a href="r_list.html">Religion 5</a>
-              </li>
-              <li>
-                <a href="r_list.html">Religion 6</a>
-              </li>
-              <li>
-                <a href="r_list.html">Religion 7</a>
-              </li>
-              <li>
-                <a href="r_list.html">Religion 8</a>
-              </li>
-              <li>
-                <a href="r_list.html">Religion 9</a>
-              </li>
-              <li>
-                <a href="r_list.html">Religion 10</a>
-              </li>
-              <li>
-                <a href="r_list.html">Religion 11</a>
-              </li>
-              <li className="more">
-                <a href="r_list.html">more..</a>
-              </li>
-            </ul>
-          </div>
-          <div className="col-md-4 w3-browse-grid">
-            <h4>By Community</h4>
-            <ul>
-              <li>
-                <a href="r_list.html">Community 1</a>
-              </li>
-              <li>
-                <a href="r_list.html">Community 2</a>
-              </li>
-              <li>
-                <a href="r_list.html">Community 3</a>
-              </li>
-              <li>
-                <a href="r_list.html">Community 4</a>
-              </li>
-              <li>
-                <a href="r_list.html">Community 5</a>
-              </li>
-              <li>
-                <a href="r_list.html">Community 6</a>
-              </li>
-              <li>
-                <a href="r_list.html">Community 7</a>
-              </li>
-              <li>
-                <a href="r_list.html">Community 8</a>
-              </li>
-              <li>
-                <a href="r_list.html">Community 9</a>
-              </li>
-              <li className="more">
-                <a href="r_list.html">more..</a>
-              </li>
-            </ul>
-          </div>
-          <div className="clearfix"></div>
-        </div>
-      </div>
-      {/* <!-- //browse profiles -->
-
-		<!-- Assisted Service --> */}
+      {/* <!-- Assisted Service -->  */}
       <div className="agile-assisted-service text-center">
         <h4>Assisted Service</h4>
         <p>

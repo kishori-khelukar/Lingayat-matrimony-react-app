@@ -158,7 +158,10 @@ a.link {
     text-transform: uppercase;
     color: #ff4747;
     font-size: 25px;
-    text-align: center;
+    text-align: center !important;
+	position: absolute;
+	right: 1px;
+	left:1px;
 }
 .login-w3ls form {
     padding: 0 2em;

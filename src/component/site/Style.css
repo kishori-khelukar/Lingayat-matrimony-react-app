@@ -113,6 +113,15 @@ RIGHT SIDEBAR TOGGLE SECTION
     transition: all .3s ease-in-out;
 }
 
+/* input type */
+@media only screen and (max-width: 760px) {
+    
+    .inputWidth {
+      width: 300px !important;
+    }
+  }
+
+
 
 
 @media (max-width: 992px) {
