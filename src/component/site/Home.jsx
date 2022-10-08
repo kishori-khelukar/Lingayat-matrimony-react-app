@@ -60,9 +60,9 @@ export default function Home() {
     getUserLogin(data).then((res) => {
       console.log(res.data);
       if (res.data) {
-        alert("Login Successful");
+        alert("Login Successful..");
+        localStorage.setItem("Login", JSON.stringify(res.data));
         navigate("/profileDetails");
-        //localStorage.setItem("login", JSON.stringify(res.data));
       } else {
         alert("Login Failed");
       }

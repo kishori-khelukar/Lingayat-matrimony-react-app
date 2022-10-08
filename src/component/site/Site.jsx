@@ -1,8 +1,15 @@
-import React from "react";
-import { Outlet, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import "./Style.css";
 
 export default function Site() {
+  const [isLoggedin, setIsLoggedin] = useState(false);
+  const navigate = useNavigate();
+  //logout
+  const logout = () => {
+    localStorage.removeItem("Login");
+    navigate("/");
+  };
   return (
     <div>
       {/* header  */}
@@ -611,90 +618,24 @@ export default function Site() {
                     <li>
                       <Link to="/search">Search</Link>
                     </li>
-                    {/* quick search */}
-                    <li className="dropdown">
-                      <a
-                        href="#"
-                        className="dropdown-toggle"
-                        data-toggle="dropdown"
-                      >
-                        Quick Search<span className="caret"></span>
-                      </a>
-                      <ul className="dropdown-menu" role="menu">
-                        <div className="banner-bottom-login">
-                          <div className="w3agile_banner_btom_login">
-                            <form action="#" method="post">
-                              <div className="w3agile__text w3agile_banner_btom_login_left">
-                                <h4>I'm looking for a</h4>
-                                <select
-                                  id="country"
-                                  onchange="change_country(this.value)"
-                                  className="frm-field required"
-                                >
-                                  <option value="null">Bride</option>
-                                  <option value="null">Groom</option>
-                                </select>
-                              </div>
-                              <div className="w3agile__text w3agile_banner_btom_login_left1">
-                                <h4>Aged</h4>
-                                <select
-                                  id="country1"
-                                  onchange="change_country(this.value)"
-                                  className="frm-field required"
-                                >
-                                  <option value="null">20</option>
-                                  <option value="null">21</option>
-                                  <option value="null">22</option>
-                                  <option value="null">23</option>
-                                  <option value="null">24</option>
-                                  <option value="null">25</option>
-                                  <option value="null">- - -</option>
-                                </select>
-                                <span>To </span>
-                                <select
-                                  id="country2"
-                                  onchange="change_country(this.value)"
-                                  className="frm-field required"
-                                >
-                                  <option value="null">30</option>
-                                  <option value="null">31</option>
-                                  <option value="null">32</option>
-                                  <option value="null">33</option>
-                                  <option value="null">34</option>
-                                  <option value="null">35</option>
-                                  <option value="null">- - -</option>
-                                </select>
-                              </div>
-                              <div className="w3agile__text w3agile_banner_btom_login_left2">
-                                <h4>Religion</h4>
-                                <select
-                                  id="country3"
-                                  onchange="change_country(this.value)"
-                                  className="frm-field required"
-                                >
-                                  <option value="null">Hindu</option>
-                                  <option value="null">Muslim</option>
-                                  <option value="null">Christian</option>
-                                  <option value="null">Sikh</option>
-                                  <option value="null">Jain</option>
-                                  <option value="null">Buddhist</option>
-                                  <option value="null">
-                                    No Religious Belief
-                                  </option>
-                                </select>
-                              </div>
-                              <div className="w3agile_banner_btom_login_left3">
-                                <input type="submit" value="Search" />
-                              </div>
-                              <div className="clearfix"> </div>
-                            </form>
-                          </div>
-                        </div>
-                      </ul>
-                    </li>
-                    {/* end quick */}
+
                     <li className="last">
                       <Link to="/contact">Contact Us</Link>
+                    </li>
+                    <li className="">
+                      {/* logout */}
+                      <a
+                        onClick={logout}
+                        className="btn-logout text-white"
+                        style={{
+                          cursor: "pointer",
+                          backgroundColor: "#f00e1a",
+                        }}
+                      >
+                        Logout
+                      </a>
+
+                      {/*  */}
                     </li>
                   </ul>
                 </div>

@@ -395,7 +395,7 @@ export default function FamilyDetails() {
                           <input
                             className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"
                             type="submit"
-                            value="Submit"
+                            value="Save And Continue"
                           />
                         </div>
                       </div>

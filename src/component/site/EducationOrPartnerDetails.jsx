@@ -41,6 +41,7 @@ export default function EducationOrPartnerDetails() {
         if (res.data.success) {
           reset(setUserList());
           //navigate("/familyDetails");
+          alert("All Data Save Successfully...!!");
         }
       })
       .catch((err) => {
@@ -543,7 +544,6 @@ export default function EducationOrPartnerDetails() {
           {/* col 8 */}
           <div className="clearfix"></div>
         </div>
-       
       </div>
     </div>
   );

@@ -49,11 +49,13 @@ export default function ProfileDetails() {
   useEffect(() => {
     loadSingleUser(UserId);
   }, [UserId]);
+
   //get single user id from localhost-
   const loadSingleUser = (id) => {
     getSingleUser(id).then((res) => {
       console.log(">>>>>>>>", res.data);
       setUserList(res.data);
+      reset(res.data);
     });
   };
   //update method for add and update form-
@@ -116,6 +118,7 @@ export default function ProfileDetails() {
                   alt="profile image"
                 />
               </div>
+
               <div className="w3layouts_details">
                 <h4 style={{ color: "#b30b24" }}>
                   Name : {userList && userList.userName}
@@ -167,7 +170,7 @@ export default function ProfileDetails() {
                           className="col-xs-12 col-sm-12 col-md-12 col-lg-6"
                           type="text"
                           name="userName"
-                          //value={userList.userName}
+                          //defaultValue={userList ? userList.userName : ""}
                           placeholder=" "
                           required=""
                           {...register("userName", {
@@ -190,6 +193,7 @@ export default function ProfileDetails() {
                           className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"
                           type="text"
                           name="address"
+                          //defaultValue={userList ? userList.address : ""}
                           placeholder=" "
                           required=""
                           {...register("address", {
@@ -250,10 +254,6 @@ export default function ProfileDetails() {
                           className="frm-field required"
                           {...register("bloodGroup", {
                             required: "please enter your blood group.",
-                            pattern: {
-                              value: /^[a-z A-Z]+$/,
-                              message: "Enter Valid Blood Group.",
-                            },
                           })}
                         >
                           <option value="">--Select Blood Group--</option>
@@ -404,11 +404,7 @@ export default function ProfileDetails() {
                           id="w3_country"
                           className="frm-field required"
                           {...register("branch", {
-                            required: "please enter your gender.",
-                            pattern: {
-                              value: /^[a-z A-Z]+$/,
-                              message: "Enter Valid Gender.",
-                            },
+                            required: "please enter your Branch.",
                           })}
                         >
                           <option value="">--Select Branch--</option>
@@ -437,10 +433,6 @@ export default function ProfileDetails() {
                           className="frm-field required"
                           {...register("zodiac", {
                             required: "please enter your zodiac.",
-                            pattern: {
-                              value: /^[a-z A-Z]+$/,
-                              message: "Enter Valid Zodiac.",
-                            },
                           })}
                         >
                           <option value="">--Select Branch--</option>
@@ -585,7 +577,7 @@ export default function ProfileDetails() {
                           <input
                             className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"
                             type="submit"
-                            value="Submit"
+                            value="Save And Continue"
                           />
                         </div>
                       </div>
